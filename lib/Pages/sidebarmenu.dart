@@ -6,7 +6,6 @@ import 'package:datvetau/Pages/infogatau.dart';
 import 'package:datvetau/Pages/infoghe.dart';
 import 'package:datvetau/Pages/bookve.dart';
 import 'checkve.dart';
-import 'package:datvetau/Pages/mainpage.dart';
 
 class sidebarmenu extends StatefulWidget {
   @override
@@ -86,11 +85,9 @@ class _sidebarmenu extends State<sidebarmenu> {
               icon: Icons.logout,
               onClicked: () async {
                 _auth.signOut();
-                if (_auth.authStateChanges() == null) {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => Login(),
                   ));
-                }
               },
             ),
           ],
