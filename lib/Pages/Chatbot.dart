@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-
+final List<String> msbot = [];
 List result = [];
 List<Album> welcomeFromJson(String str) =>
     List<Album>.from(json.decode(str).map((x) => Album.fromJson(x)));
@@ -18,7 +18,11 @@ Future<List<Album>> createAlbum(String message) async {
       'message': message,
     }),
   );
-
+  List<Album> data = [];
+  data = parsePhotos(response.body);
+  for (int i = 0; i < data.length; i++) {
+    msbot.add(data[i].text);
+  }
   return compute(
     parsePhotos,
     response.body,
@@ -133,6 +137,8 @@ class _UIState extends State<UI> {
                               0, {"data": 1, "message": messageInsert.text});
                         });
                         futureAlbum = createAlbum(messageInsert.text);
+                        result.insert(
+                            0, {"data": 0, "message": msbot});
                         messageInsert.clear();
                       }
                       FocusScopeNode currentFocus = FocusScope.of(context);
