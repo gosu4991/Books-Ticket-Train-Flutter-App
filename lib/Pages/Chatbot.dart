@@ -10,7 +10,7 @@ List<Album> welcomeFromJson(String str) =>
     List<Album>.from(json.decode(str).map((x) => Album.fromJson(x)));
 Future<List<Album>> createAlbum(String message) async {
   final response = await http.post(
-    Uri.parse('http://localhost:5005/webhooks/rest/webhook'),
+    Uri.parse('http://5b8d526472e0.ngrok.io/webhooks/rest/webhook'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -19,10 +19,14 @@ Future<List<Album>> createAlbum(String message) async {
     }),
   );
   List<Album> data = [];
+  msbot.clear();
   data = parsePhotos(response.body);
   for (int i = 0; i < data.length; i++) {
     msbot.add(data[i].text);
+    msbot.add("\n");
   }
+  result.insert(
+      0, {"data": 0, "message": (msbot.toString().replaceAll(RegExp(r'[{[,}]'), '').replaceAll(']','')    )});
   return compute(
     parsePhotos,
     response.body,
@@ -83,9 +87,10 @@ class _UIState extends State<UI> {
                     builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
-                            itemCount: snapshot.data.length,
+                          reverse: true,
+                            itemCount: result.length,
                             itemBuilder: (context, index) =>
-                                chat(snapshot.data[index].text, 0));
+                                chat(result[index]["message"], result[index]["data"]));
                       }
                       return Visibility(
                           visible: false, child: CircularProgressIndicator());
@@ -131,14 +136,10 @@ class _UIState extends State<UI> {
                       if (messageInsert.text.isEmpty) {
                         print("empty message");
                       } else {
-                        setState(() {
-                          visible = true;
                           result.insert(
                               0, {"data": 1, "message": messageInsert.text});
-                        });
                         futureAlbum = createAlbum(messageInsert.text);
-                        result.insert(
-                            0, {"data": 0, "message": msbot});
+                        print(result.toString());
                         messageInsert.clear();
                       }
                       FocusScopeNode currentFocus = FocusScope.of(context);
@@ -168,8 +169,8 @@ class _UIState extends State<UI> {
         children: [
           data == 0
               ? Container(
-                  height: 60,
-                  width: 60,
+                  height: 40,
+                  width: 40,
                   child: CircleAvatar(
                     backgroundImage: AssetImage("assets/robot.jpg"),
                   ),
@@ -197,7 +198,7 @@ class _UIState extends State<UI> {
                         child: Text(
                           message,
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.white, fontWeight: FontWeight.bold,fontSize: 12),
                         ),
                       ))
                     ],
@@ -206,8 +207,8 @@ class _UIState extends State<UI> {
           ),
           data == 1
               ? Container(
-                  height: 60,
-                  width: 60,
+                  height: 40,
+                  width: 40,
                   child: CircleAvatar(
                     backgroundImage: AssetImage("assets/default.jpg"),
                   ),
