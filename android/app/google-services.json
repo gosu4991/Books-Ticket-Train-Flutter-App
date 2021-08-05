@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "84976415903",
+    "firebase_url": "https://appsellbooks-default-rtdb.firebaseio.com",
+    "project_id": "appsellbooks",
+    "storage_bucket": "appsellbooks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84976415903:android:5f12e40ee07d2f0b4f9eaa",
+        "android_client_info": {
+          "package_name": "com.example.datvetau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84976415903-5259huu1nnb8mjapfs1uuo2ts5amm0r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9T6SsXsTNb9SUp5XKZ3rzRbP4UyGVvEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "84976415903-5259huu1nnb8mjapfs1uuo2ts5amm0r7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "84976415903-mqbhbdcdverkgc93dbvjn5cj7v10n1mg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.appbanhang"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
